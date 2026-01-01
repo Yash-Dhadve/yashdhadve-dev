@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile App Solution - Project Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <style>
+        /* Project Details Page Styles */
+        .project-detail-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-detail-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(8, 203, 0, 0.1), rgba(186, 252, 4, 0.05));
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .project-detail-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .project-hero-content {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .project-detail-hero h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .project-detail-category {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(8, 203, 0, 0.15);
+            border: 1px solid rgba(8, 203, 0, 0.3);
+            border-radius: var(--radius-full);
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-detail-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--color-text-muted);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        /* Screenshots Section */
+        .screenshots-section {
+            margin: 4rem 0;
+            padding: 3rem 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--color-text);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--color-primary);
+            border-radius: var(--radius-full);
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .screenshot-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .screenshot-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(8, 203, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .screenshot-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(8, 203, 0, 0.1), rgba(186, 252, 4, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-primary);
+        }
+
+        .screenshot-info {
+            padding: 1.5rem;
+        }
+
+        .screenshot-info h3 {
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .screenshot-info p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Tech Stack Section */
+        .tech-stack-section {
+            margin: 4rem 0;
+            padding: 3rem 1rem;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(8, 203, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .tech-name {
+            color: var(--color-text);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 4rem 0;
+            padding: 3rem 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(8, 203, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            color: var(--color-text);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-description {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* CTA Button */
+        .project-cta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 4rem 0;
+            padding: 2rem 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: var(--color-primary);
+            color: #000;
+            border: none;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(8, 203, 0, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        /* Documentation Section */
+        .documentation-section {
+            margin: 4rem 0;
+            padding: 3rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+        }
+
+        .doc-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .doc-content h3 {
+            color: var(--color-text);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .doc-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .doc-content p, .doc-content li {
+            color: var(--color-text-muted);
+            line-height: 1.8;
+            margin-bottom: 0.75rem;
+        }
+
+        .doc-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .doc-content ul li {
+            list-style-type: disc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .project-detail-hero {
+                padding: 2rem 1rem;
+                min-height: 50vh;
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tech-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="nav-container">
+                <a href="index.html" class="nav-logo" aria-label="Yash Dhadve">Yash Dhadve</a>
+                <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                </button>
+                <div class="nav-links" role="navigation">
+                    <a href="index.html#home" class="nav-link">Home</a>
+                    <a href="index.html#skills" class="nav-link">Skills</a>
+                    <a href="index.html#projects" class="nav-link">Projects</a>
+                    <a href="index.html#services" class="nav-link">Services</a>
+                    <a href="index.html#contact" class="nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Project Hero Section -->
+    <section class="project-detail-hero">
+        <div class="project-detail-container">
+            <div class="project-hero-content">
+                <div class="project-detail-category">Web Development</div>
+                <h1>Mobile App Solution</h1>
+                <p class="project-detail-subtitle">
+                    A complete mobile application solution with responsive design and modern UI/UX principles. Built with cutting-edge technologies and best practices.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="project-detail-container">
+        <!-- Screenshots Section -->
+        <section class="screenshots-section">
+            <h2 class="section-title">Project Screenshots</h2>
+            <div class="screenshots-grid">
+                <div class="screenshot-card">
+                    <div class="screenshot-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="screenshot-info">
+                        <h3>Mobile Interface</h3>
+                        <p>Responsive mobile design with intuitive navigation and modern UI components.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-image">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="screenshot-info">
+                        <h3>Dashboard View</h3>
+                        <p>Comprehensive dashboard displaying real-time analytics and user engagement metrics.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card">
+                    <div class="screenshot-image">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="screenshot-info">
+                        <h3>Design System</h3>
+                        <p>Consistent design patterns and components throughout the entire application.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="tech-stack-section">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <div class="tech-name">React</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-node"></i>
+                    </div>
+                    <div class="tech-name">Node.js</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="devicon-mongodb-plain"></i>
+                    </div>
+                    <div class="tech-name">MongoDB</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    <div class="tech-name">JavaScript</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features-section">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-title">Responsive Design</div>
+                    <div class="feature-description">Works perfectly on all devices - mobile, tablet, and desktop.</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="feature-title">High Performance</div>
+                    <div class="feature-description">Optimized for speed with lazy loading and code splitting.</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="feature-title">Secure</div>
+                    <div class="feature-description">Industry-standard security practices and data encryption.</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-title">Scalable</div>
+                    <div class="feature-description">Built to handle growing user base and data requirements.</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <div class="feature-title">Real-time Updates</div>
+                    <div class="feature-description">Live data synchronization across all connected devices.</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="feature-title">User Friendly</div>
+                    <div class="feature-description">Intuitive interface designed with user experience in mind.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documentation -->
+        <section class="documentation-section">
+            <div class="doc-content">
+                <h2 class="section-title">Documentation</h2>
+
+                <h3>Overview</h3>
+                <p>
+                    This mobile app solution was developed to provide a seamless experience across all platforms. 
+                    The application focuses on user engagement, performance, and scalability.
+                </p>
+
+                <h3>Project Goals</h3>
+                <ul>
+                    <li>Create a responsive mobile-first application</li>
+                    <li>Implement real-time data synchronization</li>
+                    <li>Ensure high performance and minimal load times</li>
+                    <li>Provide intuitive user interface</li>
+                    <li>Build scalable backend infrastructure</li>
+                </ul>
+
+                <h3>Architecture</h3>
+                <p>
+                    The application uses a modern full-stack architecture with React on the frontend and Node.js with 
+                    Express on the backend. MongoDB is used as the primary database for flexible data storage.
+                </p>
+
+                <h3>Features Implemented</h3>
+                <ul>
+                    <li>User authentication and authorization</li>
+                    <li>Real-time notifications</li>
+                    <li>Advanced search and filtering</li>
+                    <li>User profile management</li>
+                    <li>Payment integration</li>
+                    <li>Analytics dashboard</li>
+                </ul>
+
+                <h3>Performance Metrics</h3>
+                <ul>
+                    <li>Page Load Time: < 2 seconds</li>
+                    <li>Lighthouse Score: 95+</li>
+                    <li>Mobile Friendly: Yes</li>
+                    <li>API Response Time: < 200ms</li>
+                </ul>
+
+                <h3>Future Enhancements</h3>
+                <ul>
+                    <li>Machine Learning recommendations</li>
+                    <li>Advanced analytics</li>
+                    <li>Multi-language support</li>
+                    <li>Offline functionality</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA Buttons -->
+        <section class="project-cta">
+            <a href="#" class="btn-primary">
+                <i class="fas fa-external-link-alt"></i>
+                View Live Project
+            </a>
+            <a href="projects.html" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Projects
+            </a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="text-align: center;">
+                <div style="color: var(--color-text-muted); font-size: 0.9rem;">
+                    Thank you for exploring my <strong style="color: var(--color-primary);">project details</strong>
+                </div>
+                <div style="margin-top: 1rem; font-size: 0.85rem; color: rgba(238, 238, 238, 0.6);">
+                    © 2026 Yash Dhadve. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/navbar.js" defer></script>
+    <script src="/assets/js/particles.js" defer></script>
+</body>
+</html>

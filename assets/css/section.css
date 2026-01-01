@@ -1,0 +1,123 @@
+/* Section Transitions */
+.section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Section visibility */
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Section and Hero Styles */
+.section {
+    padding: 0 0;
+    min-height: calc(100vh - 72px); /* Account for navbar height */
+    display: flex;
+    align-items: center;
+}
+
+/* Section Headers */
+.section-badge {
+    display: inline-block;
+    padding: 0.5rem 0.5rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+
+/* Section Layout */
+.section {
+    position: relative;
+    min-height: 100vh;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    /* margin-bottom: 2.5rem; */
+    position: relative;
+}
+
+.section-header h2 {
+    margin-top: 0.5rem;
+}
+
+/* Header Background Text */
+.header-background-text {
+    position: absolute;
+    top: -3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: rgba(238, 238, 238, 0.08);
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: -1;
+    text-transform: uppercase;
+}
+
+.section-header p {
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Section Badge */
+.section-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Section Headers */
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+
+    .header-background-text {
+        font-size: clamp(2rem, 6vw, 5rem);
+        top: -2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .section-header p {
+        font-size: 0.9rem;
+    }
+
+    .section-badge {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    .header-background-text {
+        font-size: clamp(1.5rem, 5vw, 3rem);
+        top: -1.5rem;
+    }
+} 

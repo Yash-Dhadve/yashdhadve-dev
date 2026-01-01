@@ -1,107 +1,80 @@
-// Project filtering functionality
-document.addEventListener('DOMContentLoaded', () => {
-    // Navbar scroll behavior
-    const navbar = document.querySelector('.navbar');
-    let lastScrollTop = 0;
-    let isScrollingDown = false;
+/* ========================================
+   PROJECTS SECTION - INTERACTIVE EFFECTS
+======================================== */
 
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Add/remove scrolled class based on scroll position
-        if (scrollTop > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-
-        // Hide/show navbar based on scroll direction
-        if (scrollTop > lastScrollTop && !isScrollingDown && scrollTop > 100) {
-            // Scrolling down
-            navbar.style.transform = 'translateY(-100%)';
-            isScrollingDown = true;
-        } else if (scrollTop < lastScrollTop && isScrollingDown) {
-            // Scrolling up
-            navbar.style.transform = 'translateY(0)';
-            isScrollingDown = false;
-        }
-
-        lastScrollTop = scrollTop;
-    });
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            menuToggle.setAttribute('aria-expanded', 
-                menuToggle.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'
-            );
-        });
-    }
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (navLinks && navLinks.classList.contains('active') && 
-            !e.target.closest('.nav-links') && 
-            !e.target.closest('.menu-toggle')) {
-            navLinks.classList.remove('active');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }
-    });
-
-    // Project filters
-    const filterButtons = document.querySelectorAll('.filter-btn');
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate project cards on scroll
     const projectCards = document.querySelectorAll('.project-card');
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
-
-            const filter = button.getAttribute('data-filter');
-
-            projectCards.forEach(card => {
-                if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                    card.style.display = 'block';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 10);
-                } else {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
-                    setTimeout(() => {
-                        card.style.display = 'none';
-                    }, 300);
-                }
-            });
-        });
-    });
-
-    // Initialize AOS animation library if present
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 800,
-            offset: 100,
-            once: true
-        });
-    }
-
-    // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = `fadeInUp 0.6s ease-out forwards`;
+                entry.target.style.animationDelay = `${index * 0.15}s`;
+                observer.unobserve(entry.target);
             }
         });
+    }, observerOptions);
+
+    projectCards.forEach(card => {
+        observer.observe(card);
     });
-}); 
+
+    // Image placeholder animation
+    const imagePlaceholders = document.querySelectorAll('.project-image-placeholder');
+    imagePlaceholders.forEach(placeholder => {
+        placeholder.addEventListener('mouseenter', function() {
+            this.style.animation = 'bounce 0.4s ease-out';
+        });
+    });
+
+    // Project tag hover effects
+    const projectTags = document.querySelectorAll('.project-tag');
+    projectTags.forEach(tag => {
+        tag.addEventListener('mouseenter', function() {
+            this.style.animation = 'popIn 0.3s ease-out';
+        });
+    });
+});
+
+// Add keyframe animations dynamically
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes popIn {
+        0% {
+            transform: scale(0.8);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+`;
+document.head.appendChild(style);

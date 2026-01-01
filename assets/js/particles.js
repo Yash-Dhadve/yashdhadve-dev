@@ -3,7 +3,7 @@ class ParticleSystem {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.particles = [];
-        this.particleCount = 50;
+        this.particleCount = 70;
         
         this.resizeCanvas();
         window.addEventListener('resize', () => this.resizeCanvas());
@@ -35,7 +35,7 @@ class ParticleSystem {
         this.particles.forEach(particle => {
             this.ctx.beginPath();
             this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = `rgba(186, 252, 4, ${particle.opacity})`;
+            this.ctx.fillStyle = `rgba(8, 203, 0, ${particle.opacity})`;
             this.ctx.fill();
         });
 
@@ -52,7 +52,7 @@ class ParticleSystem {
                 if (distance < 150) {
                     this.ctx.beginPath();
                     this.ctx.strokeStyle = `rgba(186, 252, 4, ${0.1 * (1 - distance/150)})`;
-                    this.ctx.lineWidth = 0.5;
+                    this.ctx.lineWidth = 3;
                     this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
                     this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
                     this.ctx.stroke();
