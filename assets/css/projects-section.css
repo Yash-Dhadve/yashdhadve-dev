@@ -293,6 +293,7 @@
 .project-link-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(8, 203, 0, 0.3);
+    color: #000;
 }
 
 .project-link-secondary {
