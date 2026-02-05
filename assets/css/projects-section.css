@@ -10,10 +10,23 @@
 /* Projects Header with View All Link */
 .projects-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
     gap: 2rem;
     flex-wrap: wrap;
+    position: relative;
+}
+
+.projects-header > div:first-child {
+    flex: 1;
+    text-align: center;
+    min-width: 300px;
+}
+
+.projects-header > a {
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .view-all-link {
@@ -28,6 +41,8 @@
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
+    white-space: nowrap;
+    transition: all 0.3s ease;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
 }

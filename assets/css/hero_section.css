@@ -177,6 +177,8 @@
     color: #000;
     margin: 0 32px;
     letter-spacing: 0.5px;
+    cursor: pointer;
+    user-select: none;
 }
 
 /* =========================================================
